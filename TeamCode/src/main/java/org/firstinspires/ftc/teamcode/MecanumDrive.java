@@ -8,14 +8,23 @@ import org.firstinspires.ftc.robotcore.external.navigation.DistanceUnit;
 import org.firstinspires.ftc.robotcore.external.navigation.Pose2D;
 import com.qualcomm.hardware.limelightvision.LLResult;
 import com.qualcomm.hardware.limelightvision.LLResultTypes;
+import com.qualcomm.robotcore.util.ElapsedTime;
 
 import java.util.List;
 
 @TeleOp(name = "Robot: Field Relative Mecanum Drive", group = "Robot")
-@Disabled
+//@Disabled
 public class MecanumDrive extends OpMode {
-    private RobotHardware robot;
 
+    private int servoPresetIndex = 0;                     // 0, 1, or 2
+    private final double[] SERVO_PRESETS = {0.0, 0.5, 1.0};  // ← change to your 3 positions
+
+    // Optional: for debounce so holding dpad doesn't spam
+    private boolean dpadLeftWasPressed  = false;
+    private boolean dpadRightWasPressed = false;
+    private RobotHardware robot;
+    private ElapsedTime lifterTimer = new ElapsedTime();
+    private boolean lifterIsFiring = false;
     private boolean targeting = false;
     private Pose2D targetScoringPose = null;
 
@@ -78,6 +87,30 @@ public class MecanumDrive extends OpMode {
         double right = gamepad1.left_stick_x;
         double rotate = gamepad1.right_stick_x;
 
+        if (gamepad1.right_bumper) {robot.startIntake();}
+        else if (gamepad1.left_bumper) {robot.reverseIntake();}
+        else {robot.stopIntake();}
+
+        if (gamepad1.right_trigger > 0.5 ) {robot.startFlywheel();}
+        else {robot.stopFlywheel();}
+
+        double currentRPM = robot.getFlywheelVelocity();
+
+        if (!lifterIsFiring && currentRPM >= robot.TARGET_RPM * 0.95) {
+            // First time we hit 95% → fire!
+            robot.lifterServo.setPosition(0.5);
+            lifterTimer.reset();
+            lifterIsFiring = true;
+        }
+
+        // Has it been 500 ms yet?
+        if (lifterIsFiring && lifterTimer.milliseconds() >= 500) {
+            robot.lifterServo.setPosition(0.0);
+            lifterIsFiring = false;          // ready for next shot
+        }
+        // ─────────────────────────────────────────────────────────────────────
+
+
         if (gamepad1.a) {
             //robot.getImu().resetYaw();
             double odoX = odoPose.getX(DistanceUnit.INCH);
@@ -94,6 +127,30 @@ public class MecanumDrive extends OpMode {
             }
         }
 
+
+        // ────── CYCLE SERVO PRESETS WITH D-PAD LEFT / RIGHT ──────
+        boolean dpadLeftPressed  = gamepad1.dpad_left || gamepad2.dpad_left;
+        boolean dpadRightPressed = gamepad1.dpad_right || gamepad2.dpad_right;
+
+// Detect button press (not hold)
+        if (dpadLeftPressed && !dpadLeftWasPressed) {
+            servoPresetIndex--;
+            if (servoPresetIndex < 0) servoPresetIndex = SERVO_PRESETS.length - 1;
+            robot.getIndexerServo().setPosition(SERVO_PRESETS[servoPresetIndex]);
+        }
+
+        if (dpadRightPressed && !dpadRightWasPressed) {
+            servoPresetIndex++;
+            if (servoPresetIndex >= SERVO_PRESETS.length) servoPresetIndex = 0;
+            robot.getIndexerServo().setPosition(SERVO_PRESETS[servoPresetIndex]);
+        }
+
+// Save button state for next loop
+        dpadLeftWasPressed  = dpadLeftPressed;
+        dpadRightWasPressed = dpadRightPressed;
+
+// ────── Optional: show current preset on Driver Station ──────
+        telemetry.addData("Servo Preset", "%d → %.2f", servoPresetIndex + 1, SERVO_PRESETS[servoPresetIndex]);
         if (targeting) {
             double dx = targetScoringPose.getX(DistanceUnit.INCH) - odoPose.getX(DistanceUnit.INCH);
             double dy = targetScoringPose.getY(DistanceUnit.INCH) - odoPose.getY(DistanceUnit.INCH);

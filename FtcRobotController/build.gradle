@@ -6,6 +6,17 @@ import java.text.SimpleDateFormat
 apply plugin: 'com.android.library'
 
 android {
+        namespace = 'org.firstinspires.ftc.teamcode'
+
+        compileSdk 35
+        defaultConfig {
+            minSdk 24
+        }
+
+        packagingOptions {
+            jniLibs.useLegacyPackaging true
+        }
+
 
     defaultConfig {
         minSdkVersion 24

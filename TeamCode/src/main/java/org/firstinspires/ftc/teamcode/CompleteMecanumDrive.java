@@ -1,5 +1,6 @@
 package org.firstinspires.ftc.teamcode;
 
+import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.hardware.limelightvision.LLResult;
@@ -27,6 +28,7 @@ import java.util.List;
  * - A: Reset indexer to home
  */
 @TeleOp(name = "Robot: Complete Mecanum Drive", group = "Robot")
+@Disabled
 public class CompleteMecanumDrive extends OpMode {
     // ---------- ADD THESE FIELDS ----------
     private boolean forceShootActive = false;

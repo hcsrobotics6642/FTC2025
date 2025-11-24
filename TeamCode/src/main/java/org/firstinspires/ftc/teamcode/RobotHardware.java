@@ -37,7 +37,7 @@ public class RobotHardware {
     // New servos for indexer system
     private Servo cameraTilt;    // Tilts the Limelight up/down
     private Servo indexerServo;  // Rotates the indexer wheel
-    private Servo lifterServo;   // Lifts artifacts into flywheel
+    public Servo lifterServo;   // Lifts artifacts into flywheel
 
     // Servo positions for indicators
     private static final double RED_INDICATOR = 0.27;
@@ -62,7 +62,7 @@ public class RobotHardware {
     // Flywheel parameters
     private static final double FLYWHEEL_POWER = 1;
     private static final double FLYWHEEL_IN_POWER = -0.5;
-    private static final double TARGET_RPM = 6000;
+    public static final double TARGET_RPM = 6000;
     private static final int TICKS_PER_REV = 28;
     private double lastEncoderPos = 0;
     private long lastTime = 0;

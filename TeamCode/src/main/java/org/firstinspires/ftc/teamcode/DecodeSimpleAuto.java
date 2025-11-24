@@ -9,7 +9,7 @@ import org.firstinspires.ftc.robotcore.external.navigation.Pose2D;
 
 /**
  * Decode Auto – NO ENCODERS on flywheel
- * 1. Detect alliance (Limelight)
+ * 1. Detect alliance (Limelight) Default is blue.
  * 2. Flywheel = 0.80 power (hard-coded)
  * 3. Shoot pre-loaded artifact (slot 1)
  * 4. Turn 90 degrees (Blue -> CCW, Red -> CW)
@@ -17,7 +17,6 @@ import org.firstinspires.ftc.robotcore.external.navigation.Pose2D;
  */
 @Autonomous(name = "Decode Auto: 80% Flywheel (No Encoders)", preselectTeleOp ="Robot: Complete Mecanum Drive", group= "Robot")
 public class DecodeSimpleAuto extends LinearOpMode {
-
     /* --------------------------------------------------------------- */
     /* -------------------------- HARDWARE --------------------------- */
     /* --------------------------------------------------------------- */
@@ -35,7 +34,7 @@ public class DecodeSimpleAuto extends LinearOpMode {
     private static final double TURN_TOLERANCE = 2.0;
 
     /* --------------------------------------------------------------- */
-    /* ------------------------------- MAIN --------------------------- */
+    /* ------------------------------ MAIN --------------------------- */
     /* --------------------------------------------------------------- */
     @Override
     public void runOpMode() {
@@ -108,7 +107,7 @@ public class DecodeSimpleAuto extends LinearOpMode {
     }
 
     /* --------------------------------------------------------------- */
-    /* -------------------------- SHOOT SLOT -------------------------- */
+    /* ------------------------- SHOOT SLOT -------------------------- */
     /* --------------------------------------------------------------- */
     private void shootSlot(int slot) {
         // Rotate to shooter
@@ -131,7 +130,7 @@ public class DecodeSimpleAuto extends LinearOpMode {
     }
 
     /* --------------------------------------------------------------- */
-    /* -------------------------- TURN RELATIVE ----------------------- */
+    /* ------------------------- TURN RELATIVE ----------------------- */
     /* --------------------------------------------------------------- */
     private void turnRelative(double relativeDegrees) {
         Pose2D cur = robot.updatePoseWithFusion();
@@ -153,7 +152,7 @@ public class DecodeSimpleAuto extends LinearOpMode {
     }
 
     /* --------------------------------------------------------------- */
-    /* -------------------------- DRIVE FORWARD ----------------------- */
+    /* ------------------------- DRIVE FORWARD ----------------------- */
     /* --------------------------------------------------------------- */
     private void driveForward(double inches) {
         Pose2D cur = robot.updatePoseWithFusion();

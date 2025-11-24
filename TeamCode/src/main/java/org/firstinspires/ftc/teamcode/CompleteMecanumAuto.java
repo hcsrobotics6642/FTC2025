@@ -1,6 +1,7 @@
 package org.firstinspires.ftc.teamcode;
 
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
+import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import org.firstinspires.ftc.robotcore.external.navigation.AngleUnit;
 import org.firstinspires.ftc.robotcore.external.navigation.DistanceUnit;
@@ -15,6 +16,7 @@ import org.firstinspires.ftc.robotcore.external.navigation.Pose2D;
  * - Navigation to scoring position
  */
 @Autonomous(name = "Robot: Complete Autonomous", group = "Robot")
+@Disabled
 public class CompleteMecanumAuto extends LinearOpMode {
     private RobotHardware robot;
     private CameraPositionManager cameraManager;
