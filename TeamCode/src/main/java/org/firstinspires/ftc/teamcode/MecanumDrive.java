@@ -14,7 +14,7 @@ public class MecanumDrive extends LinearOpMode {
     @Override
     public void runOpMode() throws InterruptedException {
 
-        robot = new RobotHardware(hardwareMap);
+        robot = new RobotHardware(hardwareMap, this);
 
         telemetry.addLine("TELEOP READY - 100% SAFE FOR COMPETITION");
         telemetry.addLine("RIGHT BUMPER = Intake into current slot");
@@ -24,12 +24,27 @@ public class MecanumDrive extends LinearOpMode {
         waitForStart();
 
         while (opModeIsActive()) {
-
+            robot.setElevationForDistance();  // ← Always correct elevation
             // ==================== DRIVER - GAMEPAD 1 ====================
-            double drive  = -gamepad1.left_stick_y;
-            double strafe = gamepad1.left_stick_x;
-            double turn   = gamepad1.right_stick_x;
-            robot.drive(drive, strafe, turn);
+            // ==================== DRIVER - GAMEPAD 1 ====================
+            double forward = -gamepad1.left_stick_y;
+            double strafe  = gamepad1.left_stick_x;
+            double turn    = gamepad1.right_stick_x;
+
+            // HOLD LEFT BUMPER = Temporary ROBOT-CENTRIC override
+            // Release = FIELD-CENTRIC (default)
+            // AUTO-AIM: Hold dpad_up to aim at goal (releases control when let go)
+            if (gamepad1.left_bumper) {
+                robot.autoAimToGoal();
+            } else {
+                // Normal field-centric drive (LB = robot-centric override)
+                if (gamepad1.left_bumper) {
+                    robot.drive(forward, strafe, turn);
+                } else {
+                    robot.driveFieldCentric(forward, strafe, turn);
+                }
+            }
+
 
             // Alliance select backup
             if (gamepad1.x) RobotData.alliance = RobotData.Alliance.Blue;
@@ -78,11 +93,11 @@ public class MecanumDrive extends LinearOpMode {
 
             // FLYWHEEL - Fixed speed (your safe 6000 RPM max)
             if (gamepad2.right_trigger > 0.5) {
-                robot.startFlywheel();           // ← This method definitely exists
+                robot.setFlywheelRPM(6000);           // ← This method definitely exists
             }
             else if (gamepad2.left_trigger > 0.5) {
                 robot.flywheelMotorLeft.setPower(-1.0);
-                robot.flywheelMotorRight.setPower(-1.0);
+
             }
             else {
                 robot.stopFlywheel();            // ← This method definitely exists
