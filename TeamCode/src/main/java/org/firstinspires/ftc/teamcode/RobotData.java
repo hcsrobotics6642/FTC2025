@@ -45,7 +45,126 @@ public class RobotData {
 
     public static Pattern pattern = Pattern.NotSet;
 
-    // --------------------------------------------------------------------
+    // ----------------------package org.firstinspires.ftc.teamcode;
+    //
+    //import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
+    //import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
+    //
+    //// Limelight imports you MUST include
+    //import com.qualcomm.hardware.limelightvision.LLResult;
+    //import com.qualcomm.hardware.limelightvision.LLResultTypes;
+    //
+    //@Autonomous(name = "Auto Red", group = "Robot")
+    //public class AutoRed extends LinearOpMode {
+    //
+    //    private RobotHardware robot;
+    //
+    //    @Override
+    //    public void runOpMode() throws InterruptedException {
+    //
+    //        robot = new RobotHardware(hardwareMap);
+    //
+    //        telemetry.addLine("RED Autonomous Ready");
+    //        telemetry.update();
+    //
+    //        waitForStart();
+    //        if (isStopRequested()) return;
+    //
+    //        // -------------------------------------------------------
+    //        // STEP 1 — DETECT OBELISK PATTERN
+    //        // -------------------------------------------------------
+    //        RobotData.pattern = "NotSet";
+    //
+    //        long startTime = System.currentTimeMillis();
+    //        long timeout = 3000;
+    //
+    //        telemetry.addLine("Detecting Pattern...");
+    //        telemetry.update();
+    //
+    //        while (opModeIsActive()
+    //                && RobotData.pattern.equals("NotSet")
+    //                && (System.currentTimeMillis() - startTime < timeout)) {
+    //
+    //            LLResult result = robot.getLimelight().getLatestResult();
+    //
+    //            if (result != null && result.isValid()) {
+    //                for (LLResultTypes.FiducialResult fr : result.getFiducialResults()) {
+    //
+    //                    int id = fr.getFiducialId();
+    //
+    //                    if (id == RobotHardware.GPP_APRILTAG_ID) {
+    //                        RobotData.pattern = "GPP";
+    //                    }
+    //                    if (id == RobotHardware.PGP_APRILTAG_ID) {
+    //                        RobotData.pattern = "PGP";
+    //                    }
+    //                    if (id == RobotHardware.PPG_APRILTAG_ID) {
+    //                        RobotData.pattern = "PPG";
+    //                    }
+    //                }
+    //            }
+    //        }
+    //
+    //        // Fallback if pattern not found
+    //        if (RobotData.pattern.equals("NotSet")) {
+    //            RobotData.pattern = "GPP";
+    //        }
+    //
+    //        telemetry.addData("Pattern:", RobotData.pattern);
+    //        telemetry.update();
+    //        sleep(250);
+    //
+    //        // -------------------------------------------------------
+    //        // STEP 2 — GET FIRING ORDER BASED ON PATTERN
+    //        // -------------------------------------------------------
+    //
+    //        int[] shotOrder = robot.getMotifShotOrder();
+    //
+    //        telemetry.addData("Shot Order:", shotOrder[0] + "," + shotOrder[1] + "," + shotOrder[2]);
+    //        telemetry.update();
+    //
+    //        // -------------------------------------------------------
+    //        // STEP 3 — FIRE ARTIFACTS IN THE CORRECT ORDER
+    //        // -------------------------------------------------------
+    //
+    //        for (int index = 0; index < 3; index++) {
+    //
+    //            int slot = shotOrder[index];
+    //
+    //            // Rotate hopper based on slot number
+    //            switch (slot) {
+    //                case 1:  robot.rotateToSlot1Shoot();  break;
+    //                case 2:  robot.rotateToSlot2Shoot();  break;
+    //                case 3:  robot.rotateToSlot3Shoot();  break;
+    //            }
+    //
+    //            sleep(400); // allow servo to settle
+    //
+    //            // Spin up using PID and wait for stable RPM
+    //            robot.prepareShot();
+    //
+    //            // Fire the artifact using lifter servo
+    //            robot.shootArtifact();
+    //
+    //            sleep(250);
+    //        }
+    //
+    //        // All shots done
+    //        robot.stopFlywheel();
+    //
+    //        // -------------------------------------------------------
+    //        // STEP 4 — PARK FOR RED ALLIANCE
+    //        // -------------------------------------------------------
+    //        telemetry.addLine("Parking Red...");
+    //        telemetry.update();
+    //
+    //        robot.parkRed();
+    //
+    //        telemetry.addLine("Autonomous Complete");
+    //        telemetry.update();
+    //        sleep(500);
+    //    }
+    //}----------------------------------------------
     // AUTO RESULTS
     // --------------------------------------------------------------------
 
