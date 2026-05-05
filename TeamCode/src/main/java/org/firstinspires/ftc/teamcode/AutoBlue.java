@@ -16,7 +16,7 @@ public class AutoBlue extends LinearOpMode {
         robot = new RobotHardware(hardwareMap, this);  // Pass 'this' OpMode
         RobotData.resetAutoData();
         RobotData.alliance = RobotData.Alliance.Blue;
-
+        robot.allianceLED.setPosition(0.3);
         telemetry.addLine("BLUE AUTO READY");
         telemetry.addLine("Starting flat against back wall");
         telemetry.addLine("Detecting Obelisk motif...");
@@ -50,9 +50,8 @@ public class AutoBlue extends LinearOpMode {
         if (RobotData.pattern == RobotData.Pattern.NotSet) {
             RobotData.pattern = RobotData.Pattern.GPP;  // Safe default
         }
-
-        telemetry.addData("Detected Pattern", RobotData.pattern);
-        telemetry.update();
+        //robot.setAllianceLED();   // Show Blue/Red
+        robot.setMotifLEDs();     // Show GPP/PGP/PPG pattern
         sleep(500);
 
         // ========================================================
@@ -67,7 +66,7 @@ public class AutoBlue extends LinearOpMode {
         // ========================================================
         // STEP 3: TURN TO SHOOTING HEADING (Blue = 0 degrees)
         // ========================================================
-        robot.turnToHeading(8);  // Face straight down field
+        robot.turnToHeading(197,2);  // Face straight down field
         sleep(300);
 
         // ========================================================
@@ -86,9 +85,9 @@ public class AutoBlue extends LinearOpMode {
             sleep(600);                    // Let indexer settle
             robot.prepareShot();           // Spin up + stabilize
             robot.shootArtifact();         // Lifter up
-            sleep(1300);                   // Full lifter cycle + buffer
+            sleep(900);                   // Full lifter cycle + buffer
             robot.returnLifter();          // Lifter down
-            sleep(300);                    // Recovery
+            sleep(600);                    // Recovery
         }
 
         robot.stopFlywheel();

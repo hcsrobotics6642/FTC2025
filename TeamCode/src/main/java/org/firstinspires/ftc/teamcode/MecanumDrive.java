@@ -24,6 +24,7 @@ public class MecanumDrive extends LinearOpMode {
         waitForStart();
 
         while (opModeIsActive()) {
+            robot.setAllianceLED();
             robot.setElevationForDistance();  // ← Always correct elevation
             // ==================== DRIVER - GAMEPAD 1 ====================
             // ==================== DRIVER - GAMEPAD 1 ====================
@@ -34,7 +35,7 @@ public class MecanumDrive extends LinearOpMode {
             // HOLD LEFT BUMPER = Temporary ROBOT-CENTRIC override
             // Release = FIELD-CENTRIC (default)
             // AUTO-AIM: Hold dpad_up to aim at goal (releases control when let go)
-            if (gamepad1.left_bumper) {
+            if (gamepad1.right_bumper) {
                 robot.autoAimToGoal();
             } else {
                 // Normal field-centric drive (LB = robot-centric override)
@@ -93,7 +94,8 @@ public class MecanumDrive extends LinearOpMode {
 
             // FLYWHEEL - Fixed speed (your safe 6000 RPM max)
             if (gamepad2.right_trigger > 0.5) {
-                robot.setFlywheelRPM(6000);           // ← This method definitely exists
+                robot.setFlywheelRPM(6000);
+                // ← This method definitely exists
             }
             else if (gamepad2.left_trigger > 0.5) {
                 robot.flywheelMotorLeft.setPower(-1.0);

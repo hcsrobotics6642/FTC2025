@@ -50,10 +50,9 @@ public class AutoRed extends LinearOpMode {
         if (RobotData.pattern == RobotData.Pattern.NotSet) {
             RobotData.pattern = RobotData.Pattern.GPP;  // Safe default
         }
-
-        telemetry.addData("Detected Pattern", RobotData.pattern);
-        telemetry.update();
-        sleep(500);
+        // After you set RobotData.pattern = ...
+        robot.setAllianceLED();   // Show Blue/Red
+        robot.setMotifLEDs();     // Show GPP/PGP/PPG pattern
 
         // ========================================================
         // STEP 2: GET SHOT ORDER
@@ -67,7 +66,7 @@ public class AutoRed extends LinearOpMode {
         // ========================================================
         // STEP 3: TURN TO SHOOTING HEADING (Red = 180 degrees)
         // ========================================================
-        robot.turnToHeading(-8);  // Face straight down field on Red side
+        robot.turnToHeading(165,2);  // Face straight down field on Red side
         sleep(300);
 
         // ========================================================
@@ -86,9 +85,9 @@ public class AutoRed extends LinearOpMode {
             sleep(600);                    // Let indexer settle
             robot.prepareShot();           // Spin up + stabilize
             robot.shootArtifact();         // Lifter up
-            sleep(1300);                   // Full lifter cycle + buffer
+            sleep(900);                   // Full lifter cycle + buffer
             robot.returnLifter();          // Lifter down
-            sleep(300);                    // Recovery
+            sleep(600);                    // Recovery
         }
 
         robot.stopFlywheel();
@@ -99,7 +98,7 @@ public class AutoRed extends LinearOpMode {
         telemetry.addLine("Driving into Observation Zone...");
         telemetry.update();
 
-        robot.driveStraight(0.6, 26);   // 26 inches forward at 60% power
+        robot.driveStraight(0.2, 26);   // 26 inches forward at 60% power
 
         // ========================================================
         // STEP 6: SAVE POSE FOR TELEOP HANDOFF
