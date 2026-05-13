@@ -54,11 +54,11 @@ public class MecanumDrive extends LinearOpMode {
             // ==================== OPERATOR - GAMEPAD 2 ====================
 
             // INTAKE + SEQUENTIAL HOPPER
-            if (gamepad2.right_bumper) {
-                robot.rotateToIntakeSlot(currentIntakeSlot);
+            if (gamepad2.a) {
+                //robot.rotateToIntakeSlot(currentIntakeSlot);
                 robot.intakeForward();
             }
-            else if (gamepad2.left_bumper) {
+            else if (gamepad2.x) {
                 robot.intakeReverse();
             }
             else {
@@ -89,7 +89,19 @@ public class MecanumDrive extends LinearOpMode {
             if (gamepad2.y) {
                 currentShootSlot = 1;
                 robot.rotateToShootSlot(1);
-                sleep(200);
+                sleep(900);
+                robot.shootArtifact();
+                sleep(900);
+                robot.rotateToShootSlot(2);
+                sleep(900);
+                robot.shootArtifact();
+                sleep(900);
+                robot.rotateToShootSlot(3);
+                sleep(900);
+                robot.shootArtifact();
+                sleep(900);
+                robot.rotateToIntakeSlot(1);
+
             }
 
             // FLYWHEEL - Fixed speed (your safe 6000 RPM max)
@@ -97,7 +109,7 @@ public class MecanumDrive extends LinearOpMode {
                 robot.setFlywheelRPM(6000);
                 // ← This method definitely exists
             }
-            else if (gamepad2.left_trigger > 0.5) {
+            else if (gamepad2.right_bumper) {
                 robot.flywheelMotorLeft.setPower(-1.0);
 
             }
@@ -106,7 +118,7 @@ public class MecanumDrive extends LinearOpMode {
             }
 
             // FIRE ONE ARTIFACT
-            if (gamepad2.a) {
+            if (gamepad2.y) {
                 robot.shootArtifact();           // ← This method definitely exists
             }
 

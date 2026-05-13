@@ -40,25 +40,25 @@ public class RobotHardware {
     public static final int PGP_APRILTAG_ID = 22;
     public static final int PPG_APRILTAG_ID = 23;
 
-    public static final double SLOT_1_SHOOT_POS = 0.318;
-    public static final double SLOT_2_SHOOT_POS = 0.383;
-    public static final double SLOT_3_SHOOT_POS = 0.463;
+    public static final double SLOT_1_SHOOT_POS = 0.2;
+    public static final double SLOT_2_SHOOT_POS = 0.27;
+    public static final double SLOT_3_SHOOT_POS = 0.35;
 
-    public static final double SLOT_1_INTAKE_POS = 0.21;
-    public static final double SLOT_2_INTAKE_POS = 0.28;
-    public static final double SLOT_3_INTAKE_POS = 0.35;
+    public static final double SLOT_1_INTAKE_POS = 0.08;
+    public static final double SLOT_2_INTAKE_POS = 0.16;
+    public static final double SLOT_3_INTAKE_POS = 0.232;
 
-    private static final double LIFTER_LOAD_POS = 0.05;
-    private static final double LIFTER_FIRE_POS = 0.52;
-    private static final long LIFTER_FIRE_TIME_MS = 700;
+    private static final double LIFTER_LOAD_POS = 0.62;
+    private static final double LIFTER_FIRE_POS = 0.05;
+    private static final long LIFTER_FIRE_TIME_MS = 900;
 
     // Shooter
     public static final int TICKS_PER_REV_FLYWHEEL = 28;
     public static final double TARGET_RPM = 6000;
 
     // Intake
-    private static final double INTAKE_RPM_IN = 1800;
-    private static final double INTAKE_RPM_OUT = -1800;
+    private static final double INTAKE_RPM_IN = 4000;
+    private static final double INTAKE_RPM_OUT = -400;
 
     // Auto movement tuning
     private static final double TURN_KP = 0.018;
